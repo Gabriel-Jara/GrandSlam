@@ -89,4 +89,9 @@ public class Partido {
     public void setNivel(int nivel) {
         this.nivel = nivel;
     }
+
+    @Override
+    public String toString() {
+        return "Partido{" + "nivel=" + nivel + ", numPartido=" + numPartido + ", part1=" + part1 + ", part2=" + part2 + '}';
+    }
 }
