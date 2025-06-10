@@ -1,26 +1,27 @@
 package grandslam;
 
+import java.util.Scanner;
+
 public class GrandSlam {
 
     public static void main(String[] args) {
-        Torneo nuevoTorneo = new Torneo(32);
+        System.out.println("------------------------------------");
+        System.out.println("TORNEO GRAND SLAM");
+        System.out.println("------------------------------------");
+        Scanner entrada = new Scanner(System.in);
+        int participantes;
+        do{
+            System.out.println("Ingrese la cantidad de participantes:");
+            participantes = entrada.nextInt();
+            if(!Torneo.validarCantParticipantes(participantes)){
+                System.out.println("Debe ingresar un número igual a 2^n (2, 4, 8, etc...)");
+                System.out.println("");
+            }
+        } while (!Torneo.validarCantParticipantes(participantes));
+        
+        Torneo nuevoTorneo = new Torneo(participantes);
 
         nuevoTorneo.armarArbolTorneo();
-
-//        Partido partFinal = nuevoTorneo.verFinal();
-//
-//        Partido semi1 = partFinal.getPartido1();
-//        Partido semi2 = partFinal.getPartido2();
-//
-//        Partido cuartos1 = semi1.getPartido1();
-//        Partido cuartos2 = semi1.getPartido2();
-//        Partido cuartos3 = semi2.getPartido1();
-//        Partido cuartos4 = semi2.getPartido2();
-//
-//        System.out.println("La final es el partido número " + partFinal.getNumPartido());
-//        System.out.println("Las semis son los partidos número " + semi1.getNumPartido() + " y " + semi2.getNumPartido());
-//        System.out.println("Los cuartos son los partidos número " + cuartos1.getNumPartido() + ", " + cuartos2.getNumPartido() + ", " + cuartos3.getNumPartido() + " y " + cuartos4.getNumPartido());
-        nuevoTorneo.armarPrimeraRonda();
 
         Participante p1 = new Participante("Carlos Gómez", "Argentina", 1);
         Participante p2 = new Participante("Lucía Fernández", "España", 2);
@@ -44,7 +45,7 @@ public class GrandSlam {
         Participante p20 = new Participante("Paula Suárez", "Costa Rica", 20);
         Participante p21 = new Participante("Lucas Reyes", "Panamá", 21);
         Participante p22 = new Participante("Natalia Molina", "Nicaragua", 22);
-        Participante p23 = new Participante("Alejandro Paredes", "El Salvador", 23);
+        Participante p23 = new Participante("Alejandro Paredes", "Salvador", 23);
         Participante p24 = new Participante("Renata Salas", "Cuba", 24);
         Participante p25 = new Participante("Gonzalo Méndez", "Puerto Rico", 25);
         Participante p26 = new Participante("Daniela Cabrera", "República Dominicana", 26);
@@ -62,9 +63,6 @@ public class GrandSlam {
         nuevoTorneo.inscribirJugador(p5);
         nuevoTorneo.inscribirJugador(p6);
         nuevoTorneo.inscribirJugador(p7);
-
-        nuevoTorneo.armarPrimeraRonda();
-
         nuevoTorneo.inscribirJugador(p8);
         nuevoTorneo.inscribirJugador(p9);
         nuevoTorneo.inscribirJugador(p10);
@@ -94,9 +92,10 @@ public class GrandSlam {
         nuevoTorneo.armarPrimeraRonda();
 
         nuevoTorneo.verResultado(nuevoTorneo.busquedaPartido(1));
-
+                
+        nuevoTorneo.mostrarTorneo();
         nuevoTorneo.cargarResultado(nuevoTorneo.busquedaPartido(1), 3, 2);
-        nuevoTorneo.verResultado(nuevoTorneo.busquedaPartido(1));
-        nuevoTorneo.verResultado(nuevoTorneo.busquedaPartido(2));
+        nuevoTorneo.mostrarTorneo();
+        
     }
 }

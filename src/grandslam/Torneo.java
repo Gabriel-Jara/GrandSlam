@@ -13,7 +13,6 @@ public class Torneo {
         this.partFinal = new Partido();
         partFinal.setNumPartido(cantidadParticipantes / 2);
         partFinal.setNivel(cantidadParticipantes / cantidadParticipantes);
-        System.out.println((int) (Math.log10(cantidadParticipantes) / Math.log10(2)));
     }
 
     public void inscribirJugador(Participante jugador) {
@@ -42,33 +41,44 @@ public class Torneo {
         } else if (nivelActual == cantidadParticipantes / 4) {
             index.setPartido1(new Partido(numPart1));
             index.getPartido1().setNivel(cantidadParticipantes / 2);
-            System.out.println("Se agregó el partido " + numPart1 + " de nivel " + cantidadParticipantes / 2);
+//            System.out.println("Se agregó el partido " + numPart1 + " de nivel " + cantidadParticipantes / 2);
             index.setPartido2(new Partido(numPart2));
             index.getPartido2().setNivel(cantidadParticipantes / 2);
-            System.out.println("Se agregó el partido " + numPart2 + " de nivel " + cantidadParticipantes / 2);
+//            System.out.println("Se agregó el partido " + numPart2 + " de nivel " + cantidadParticipantes / 2);
         } else {
             index.setPartido1(new Partido(numPart1, nivelSiguiente));
-            System.out.println("Se agregó el partido " + numPart1 + " de nivel " + nivelSiguiente);
+//            System.out.println("Se agregó el partido " + numPart1 + " de nivel " + nivelSiguiente);
             agregarInstancia(index.getPartido1());
             index.setPartido2(new Partido(numPart2, nivelSiguiente));
             agregarInstancia(index.getPartido2());
-            System.out.println("Se agregó el partido " + numPart2 + " de nivel " + nivelSiguiente);
+//            System.out.println("Se agregó el partido " + numPart2 + " de nivel " + nivelSiguiente);
         }
     }
 
     public void mostrarTorneo() {
-        mostrarPartidos(partFinal);
+        System.out.println("--------------------------------------------------------");
+        System.out.println("TORNEO");
+        System.out.println("--------------------------------------------------------");
+//        mostrarPartidos(partFinal);
+        int cantInstancias = (int) (Math.log10(cantidadParticipantes)/ Math.log10(2));
+        for (int i = 0; i < cantInstancias; i++) {
+            verInstancia((int) Math.pow(2, i));
+        }
     }
 
-    public void mostrarPartidos(Partido partido) {
-        if (partido.getNivel() == cantidadParticipantes / 2) {
-            System.out.println(partido.getNumPartido());
-        }
+    private void mostrarPartidos(Partido partido) {
+
         if (partido.getPartido1() != null && partido.getPartido2() != null) {
             mostrarPartidos(partido.getPartido1());
-            System.out.println(partido.getPartido1().getNumPartido());
+            System.out.println("Partido N°" + partido.getPartido1().getNumPartido() + " ");
+            verResultado(partido.getPartido1());
+            if (partido.getNivel() == 1) {
+                System.out.println("Partido N°" + partido.getNumPartido() + " ");
+                verResultado(partido);
+            }
             mostrarPartidos(partido.getPartido2());
-            System.out.println(partido.getPartido2().getNumPartido());
+            System.out.println("Partido N°" + partido.getPartido2().getNumPartido() + " ");
+            verResultado(partido.getPartido2());
         }
     }
 
@@ -135,13 +145,13 @@ public class Torneo {
         String jugador2;
 
         if (partido.getPart1() == null) {
-            jugador1 = "Ganador Partido " + partido.getPartido1().getNumPartido();
+            jugador1 = "Ganador Part." + partido.getPartido1().getNumPartido();
         } else {
             jugador1 = partido.getPart1().toString();
         }
 
         if (partido.getPart2() == null) {
-            jugador2 = "Ganador Partido " + partido.getPartido2().getNumPartido();
+            jugador2 = "Ganador Part." + partido.getPartido2().getNumPartido();
         } else {
             jugador2 = partido.getPart2().toString();
         }
@@ -149,7 +159,7 @@ public class Torneo {
         if (partido.getPunt1() == -1 || partido.getPunt2() == -1) {
             resultado = " (A jugar) ";
         } else {
-            resultado = " " + partido.getPunt1() + "-" + partido.getPunt2() + " ";
+            resultado = "    " + partido.getPunt1() + "-" + partido.getPunt2() + "    ";
         }
         System.out.println(jugador1 + resultado + jugador2);
     }
@@ -191,4 +201,53 @@ public class Torneo {
         }
     }
 
+    private String nombrarInstancia(int nivel) {
+        String instancia;
+        switch (nivel) {
+            case 1:
+                instancia = "Final";
+                break;
+            case 2:
+                instancia = "Semifinal";
+                break;
+            case 4:
+                instancia = "4tos de final";
+                break;
+            default:
+                instancia = nivel + "vos de final";
+        }
+        return instancia;
+    }
+
+    public void verInstancia(int nivel) {
+        System.out.println("-----------------------------");
+        System.out.println(nombrarInstancia(nivel));
+        System.out.println("-----------------------------");
+        verInstanciaPartido(partFinal, nivel);
+    }
+
+    private void verInstanciaPartido(Partido partido, int nivel) {
+
+        if (partido.getNivel() == nivel) {
+            System.out.println("Partido N°" + partido.getNumPartido() + ": ");
+            verResultado(partido);
+            System.out.println("");
+        } else if (partido.getPartido1() != null && partido.getPartido2() != null) {
+            verInstanciaPartido(partido.getPartido1(), nivel);
+            verInstanciaPartido(partido.getPartido2(), nivel);
+        }
+    }
+
+    public static boolean validarCantParticipantes(int cantidad) {
+        double resultado = cantidad;
+        boolean esValido = false;
+        do {
+            resultado = resultado / 2;
+        } while (resultado > 1);
+        if (resultado == 1) {
+            esValido = true;
+        }
+
+        return esValido;
+    }
 }
