@@ -61,28 +61,12 @@ public class Torneo {
         System.out.println("--------------------------------------------------------");
         System.out.println("TORNEO");
         System.out.println("--------------------------------------------------------");
-//        mostrarPartidos(partFinal);
         int cantInstancias = (int) (Math.log10(cantidadParticipantes) / Math.log10(2));
         for (int i = 0; i < cantInstancias; i++) {
             verInstancia((int) Math.pow(2, i));
         }
     }
 
-//    private void mostrarPartidos(Partido partido) {
-//
-//        if (partido.getPartido1() != null && partido.getPartido2() != null) {
-//            mostrarPartidos(partido.getPartido1());
-//            System.out.println("Partido N°" + partido.getPartido1().getNumPartido() + " ");
-//            verResultado(partido.getPartido1());
-//            if (partido.getNivel() == 1) {
-//                System.out.println("Partido N°" + partido.getNumPartido() + " ");
-//                verResultado(partido);
-//            }
-//            mostrarPartidos(partido.getPartido2());
-//            System.out.println("Partido N°" + partido.getPartido2().getNumPartido() + " ");
-//            verResultado(partido.getPartido2());
-//        }
-//    }
     private void ordenarParticipantes() {
         //insertionSort
         int cantidad = participantes.size();
@@ -171,12 +155,12 @@ public class Torneo {
     }
 
     public void cargarResultado(Partido partido, int punt1, int punt2) {
-        if(partido.getPart1()!= null && partido.getPart2()!=null){
-        partido.setPunt1(punt1);
-        partido.setPunt2(punt2);
+        if (partido.getPart1() != null && partido.getPart2() != null) {
+            partido.setPunt1(punt1);
+            partido.setPunt2(punt2);
 
-        avanzarGanadores();
-            
+            avanzarGanadores();
+
         } else {
             System.out.println("No se puede cargar el resultado porque falta alguno de los participantes");
         }
@@ -287,6 +271,7 @@ public class Torneo {
 
         return esValido;
     }
+
     public void crearParticipantes(String letra) {
         String opc = "";
 
@@ -306,75 +291,46 @@ public class Torneo {
                 opc = entrada.nextLine();
 
             } while (opc.equalsIgnoreCase("s"));
-        } else {
-            Participante p1 = new Participante("Carlos Gómez", "Argentina", 1);
-            Participante p2 = new Participante("Lucía Fernández", "España", 2);
-            Participante p3 = new Participante("Tomás Silva", "Uruguay", 3);
-            Participante p4 = new Participante("Ana Torres", "México", 4);
-            Participante p5 = new Participante("Pedro Rojas", "Chile", 5);
-            Participante p6 = new Participante("Elena Díaz", "Colombia", 6);
-            Participante p7 = new Participante("Mateo López", "Perú", 7);
-            Participante p8 = new Participante("Sofía Vargas", "Paraguay", 8);
-            Participante p9 = new Participante("Andrés Pérez", "Argentina", 9);
-            Participante p10 = new Participante("Claudia Romero", "México", 10);
-            Participante p11 = new Participante("Julián Ortega", "Colombia", 11);
-            Participante p12 = new Participante("Marina López", "Chile", 12);
-            Participante p13 = new Participante("Federico Torres", "Uruguay", 13);
-            Participante p14 = new Participante("Valentina Ruiz", "Perú", 14);
-            Participante p15 = new Participante("Diego Ríos", "Venezuela", 15);
-            Participante p16 = new Participante("Isabela Martínez", "Bolivia", 16);
-            Participante p17 = new Participante("Sebastián Núñez", "Ecuador", 17);
-            Participante p18 = new Participante("Camila Herrera", "Guatemala", 18);
-            Participante p19 = new Participante("Martín Castro", "Honduras", 19);
-            Participante p20 = new Participante("Paula Suárez", "Costa Rica", 20);
-            Participante p21 = new Participante("Lucas Reyes", "Panamá", 21);
-            Participante p22 = new Participante("Natalia Molina", "Nicaragua", 22);
-            Participante p23 = new Participante("Alejandro Paredes", "Salvador", 23);
-            Participante p24 = new Participante("Renata Salas", "Cuba", 24);
-            Participante p25 = new Participante("Gonzalo Méndez", "Puerto Rico", 25);
-            Participante p26 = new Participante("Daniela Cabrera", "República Dominicana", 26);
-            Participante p27 = new Participante("Iván Delgado", "España", 27);
-            Participante p28 = new Participante("Florencia Ibáñez", "Argentina", 28);
-            Participante p29 = new Participante("Enzo Aguirre", "México", 29);
-            Participante p30 = new Participante("Luciana Soto", "Chile", 30);
-            Participante p31 = new Participante("Rodrigo Varela", "Colombia", 31);
-            Participante p32 = new Participante("Julieta Ramírez", "Uruguay", 32);
+        } else if (!opc.equalsIgnoreCase("s")) {
+            ArrayList<Participante> lista = new ArrayList();
 
-           inscribirJugador(p1);
-           inscribirJugador(p2);
-           inscribirJugador(p3);
-           inscribirJugador(p4);
-           inscribirJugador(p5);
-           inscribirJugador(p6);
-           inscribirJugador(p7);
-           inscribirJugador(p8);
-           inscribirJugador(p9);
-           inscribirJugador(p10);
-           inscribirJugador(p11);
-           inscribirJugador(p12);
-           inscribirJugador(p13);
-           inscribirJugador(p14);
-           inscribirJugador(p15);
-           inscribirJugador(p16);
-           inscribirJugador(p16);
-           inscribirJugador(p16);
-           inscribirJugador(p17);
-           inscribirJugador(p18);
-           inscribirJugador(p19);
-           inscribirJugador(p20);
-           inscribirJugador(p21);
-           inscribirJugador(p22);
-           inscribirJugador(p23);
-           inscribirJugador(p24);
-           inscribirJugador(p25);
-           inscribirJugador(p26);
-           inscribirJugador(p27);
-           inscribirJugador(p28);
-           inscribirJugador(p29);
-           inscribirJugador(p30);
-           inscribirJugador(p31);
-            inscribirJugador(p32);
-
+            lista.add(new Participante("Carlos Gómez", "Argentina", 1));
+            lista.add(new Participante("Lucía Fernández", "España", 2));
+            lista.add(new Participante("Tomás Silva", "Uruguay", 3));
+            lista.add(new Participante("Ana Torres", "México", 4));
+            lista.add(new Participante("Pedro Rojas", "Chile", 5));
+            lista.add(new Participante("Elena Díaz", "Colombia", 6));
+            lista.add(new Participante("Mateo López", "Perú", 7));
+            lista.add(new Participante("Sofía Vargas", "Paraguay", 8));
+            lista.add(new Participante("Andrés Pérez", "Argentina", 9));
+            lista.add(new Participante("Claudia Romero", "México", 10));
+            lista.add(new Participante("Julián Ortega", "Colombia", 11));
+            lista.add(new Participante("Marina López", "Chile", 12));
+            lista.add(new Participante("Federico Torres", "Uruguay", 13));
+            lista.add(new Participante("Valentina Ruiz", "Perú", 14));
+            lista.add(new Participante("Diego Ríos", "Venezuela", 15));
+            lista.add(new Participante("Isabela Martínez", "Bolivia", 16));
+            lista.add(new Participante("Sebastián Núñez", "Ecuador", 17));
+            lista.add(new Participante("Camila Herrera", "Guatemala", 18));
+            lista.add(new Participante("Martín Castro", "Honduras", 19));
+            lista.add(new Participante("Paula Suárez", "Costa Rica", 20));
+            lista.add(new Participante("Lucas Reyes", "Panamá", 21));
+            lista.add(new Participante("Natalia Molina", "Nicaragua", 22));
+            lista.add(new Participante("Alejandro Paredes", "Salvador", 23));
+            lista.add(new Participante("Renata Salas", "Cuba", 24));
+            lista.add(new Participante("Gonzalo Méndez", "Puerto Rico", 25));
+            lista.add(new Participante("Daniela Cabrera", "República Dominicana", 26));
+            lista.add(new Participante("Iván Delgado", "España", 27));
+            lista.add(new Participante("Florencia Ibáñez", "Argentina", 28));
+            lista.add(new Participante("Enzo Aguirre", "México", 29));
+            lista.add(new Participante("Luciana Soto", "Chile", 30));
+            lista.add(new Participante("Rodrigo Varela", "Colombia", 31));
+            lista.add(new Participante("Julieta Ramírez", "Uruguay", 32));
+            int numListaPart = participantes.size();
+            for (int i = 0; i < cantidadParticipantes - numListaPart; i++) {
+                inscribirJugador(lista.get(i));
+            }
+            System.out.println("Se completó el cupo de participantes");
         }
     }
 }
