@@ -3,7 +3,7 @@ package grandslam;
 public class GrandSlam {
 
     public static void main(String[] args) {
-        Torneo nuevoTorneo = new Torneo(16);
+        Torneo nuevoTorneo = new Torneo(32);
 
         nuevoTorneo.armarArbolTorneo();
 
@@ -20,7 +20,6 @@ public class GrandSlam {
 //        System.out.println("La final es el partido número " + partFinal.getNumPartido());
 //        System.out.println("Las semis son los partidos número " + semi1.getNumPartido() + " y " + semi2.getNumPartido());
 //        System.out.println("Los cuartos son los partidos número " + cuartos1.getNumPartido() + ", " + cuartos2.getNumPartido() + ", " + cuartos3.getNumPartido() + " y " + cuartos4.getNumPartido());
-
         nuevoTorneo.armarPrimeraRonda();
 
         Participante p1 = new Participante("Carlos Gómez", "Argentina", 1);
@@ -93,9 +92,11 @@ public class GrandSlam {
         nuevoTorneo.inscribirJugador(p32);
 
         nuevoTorneo.armarPrimeraRonda();
-        
+
         nuevoTorneo.verResultado(nuevoTorneo.busquedaPartido(1));
-        
-        
+
+        nuevoTorneo.cargarResultado(nuevoTorneo.busquedaPartido(1), 3, 2);
+        nuevoTorneo.verResultado(nuevoTorneo.busquedaPartido(1));
+        nuevoTorneo.verResultado(nuevoTorneo.busquedaPartido(2));
     }
 }

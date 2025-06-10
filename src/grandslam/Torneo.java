@@ -12,7 +12,7 @@ public class Torneo {
         this.cantidadParticipantes = cantidadParticipantes;
         this.partFinal = new Partido();
         partFinal.setNumPartido(cantidadParticipantes / 2);
-        partFinal.setNivel(cantidadParticipantes / 2);
+        partFinal.setNivel(cantidadParticipantes / cantidadParticipantes);
         System.out.println((int) (Math.log10(cantidadParticipantes) / Math.log10(2)));
     }
 
@@ -30,26 +30,29 @@ public class Torneo {
     }
 
     public void agregarInstancia(Partido index) {
-        int nivel = index.getNivel();
+        int numFinal = partFinal.getNumPartido(); //2
+        int nivelActual = index.getNivel();
+        int nivelSiguiente = nivelActual * 2;
+        int diferencia = numFinal / nivelSiguiente;
         int numIndex = index.getNumPartido(); //obtiene el nivel del nodo actual para definir el nivel de los nodos siguientes
-        int numPart1 = numIndex - nivel / 2;
-        int numPart2 = numIndex + nivel / 2;
-        if (nivel < 2) {
+        int numPart1 = numIndex - diferencia;
+        int numPart2 = numIndex + diferencia;
+        if (cantidadParticipantes == 2) {
             System.out.println("No se crean más instancias que la final");
-        } else if (nivel == 2) {
+        } else if (nivelActual == cantidadParticipantes / 4) {
             index.setPartido1(new Partido(numPart1));
-            index.getPartido1().setNivel(1);
-            System.out.println("Se agregó el partido " + numPart1 + " de nivel " + nivel / 2);
+            index.getPartido1().setNivel(cantidadParticipantes / 2);
+            System.out.println("Se agregó el partido " + numPart1 + " de nivel " + cantidadParticipantes / 2);
             index.setPartido2(new Partido(numPart2));
-            index.getPartido2().setNivel(1);
-            System.out.println("Se agregó el partido " + numPart2 + " de nivel " + nivel / 2);
+            index.getPartido2().setNivel(cantidadParticipantes / 2);
+            System.out.println("Se agregó el partido " + numPart2 + " de nivel " + cantidadParticipantes / 2);
         } else {
-            index.setPartido1(new Partido(numPart1, nivel / 2));
-            System.out.println("Se agregó el partido " + numPart1 + " de nivel " + nivel / 2);
+            index.setPartido1(new Partido(numPart1, nivelSiguiente));
+            System.out.println("Se agregó el partido " + numPart1 + " de nivel " + nivelSiguiente);
             agregarInstancia(index.getPartido1());
-            index.setPartido2(new Partido(numPart2, nivel / 2));
+            index.setPartido2(new Partido(numPart2, nivelSiguiente));
             agregarInstancia(index.getPartido2());
-            System.out.println("Se agregó el partido " + numPart2 + " de nivel " + nivel / 2);
+            System.out.println("Se agregó el partido " + numPart2 + " de nivel " + nivelSiguiente);
         }
     }
 
@@ -117,7 +120,7 @@ public class Torneo {
                 Partido partido = busquedaPartido(numPartido);
                 partido.setPart1(p1);
                 partido.setPart2(p2);
-                System.out.printf("%-11s %-30s","Partido " + numPartido + ":" , partido.getPart1() + " VS. " + partido.getPart2());
+                System.out.printf("%-11s %-30s", "Partido " + numPartido + ":", partido.getPart1() + " VS. " + partido.getPart2());
                 System.out.println("");
             }
             System.out.println("Se han armado los partidos");
@@ -128,20 +131,63 @@ public class Torneo {
 
     public void verResultado(Partido partido) {
         String resultado;
+        String jugador1;
+        String jugador2;
+
+        if (partido.getPart1() == null) {
+            jugador1 = "Ganador Partido " + partido.getPartido1().getNumPartido();
+        } else {
+            jugador1 = partido.getPart1().toString();
+        }
+
+        if (partido.getPart2() == null) {
+            jugador2 = "Ganador Partido " + partido.getPartido2().getNumPartido();
+        } else {
+            jugador2 = partido.getPart2().toString();
+        }
+
         if (partido.getPunt1() == -1 || partido.getPunt2() == -1) {
             resultado = " (A jugar) ";
         } else {
-            resultado = " " + partido.getPunt1()+"-"+partido.getPunt2()+ " ";
+            resultado = " " + partido.getPunt1() + "-" + partido.getPunt2() + " ";
         }
-            System.out.println(partido.getPart1() + resultado + partido.getPart2());
+        System.out.println(jugador1 + resultado + jugador2);
     }
 
     public void cargarResultado(Partido partido, int punt1, int punt2) {
         partido.setPunt1(punt1);
-        partido.setPunt1(punt2);
+        partido.setPunt2(punt2);
 
-        if (punt1 > punt2) {
-            
+        avanzarGanadores();
+    }
+
+    public void avanzarGanadores() {
+        avanzarInstancia(partFinal);
+    }
+
+    private void avanzarInstancia(Partido partido) {
+        if (partido.getPartido1() != null && partido.getPartido2() != null) {
+            avanzarInstancia(partido.getPartido1());
+            int punt1 = partido.getPartido1().getPunt1();
+            int punt2 = partido.getPartido1().getPunt2();
+            if (punt1 != -1 && punt2 != -1) {
+                if (punt1 > punt2) {
+                    partido.setPart1(partido.getPartido1().getPart1());
+                } else {
+                    partido.setPart1(partido.getPartido1().getPart2());
+                }
+            }
+            avanzarInstancia(partido.getPartido2());
+            punt1 = partido.getPartido2().getPunt1();
+            punt2 = partido.getPartido2().getPunt2();
+            if (punt1 != -1 && punt2 != -1) {
+                if (punt1 > punt2) {
+                    partido.setPart2(partido.getPartido2().getPart1());
+                } else {
+                    partido.setPart2(partido.getPartido2().getPart2());
+                }
+            }
+
         }
     }
 

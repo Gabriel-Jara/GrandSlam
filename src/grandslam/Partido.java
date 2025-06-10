@@ -12,6 +12,8 @@ public class Partido {
     private int punt2;
 
     public Partido() {
+        this.punt1=-1;
+        this.punt2=-1;
     }
 
     public Partido(int numPartido) {
