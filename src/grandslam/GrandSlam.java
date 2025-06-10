@@ -3,23 +3,23 @@ package grandslam;
 public class GrandSlam {
 
     public static void main(String[] args) {
-        Torneo nuevoTorneo = new Torneo(32);
+        Torneo nuevoTorneo = new Torneo(16);
 
         nuevoTorneo.armarArbolTorneo();
 
-        Partido partFinal = nuevoTorneo.verFinal();
-
-        Partido semi1 = partFinal.getPartido1();
-        Partido semi2 = partFinal.getPartido2();
-
-        Partido cuartos1 = semi1.getPartido1();
-        Partido cuartos2 = semi1.getPartido2();
-        Partido cuartos3 = semi2.getPartido1();
-        Partido cuartos4 = semi2.getPartido2();
-
-        System.out.println("La final es el partido número " + partFinal.getNumPartido());
-        System.out.println("Las semis son los partidos número " + semi1.getNumPartido() + " y " + semi2.getNumPartido());
-        System.out.println("Los cuartos son los partidos número " + cuartos1.getNumPartido() + ", " + cuartos2.getNumPartido() + ", " + cuartos3.getNumPartido() + " y " + cuartos4.getNumPartido());
+//        Partido partFinal = nuevoTorneo.verFinal();
+//
+//        Partido semi1 = partFinal.getPartido1();
+//        Partido semi2 = partFinal.getPartido2();
+//
+//        Partido cuartos1 = semi1.getPartido1();
+//        Partido cuartos2 = semi1.getPartido2();
+//        Partido cuartos3 = semi2.getPartido1();
+//        Partido cuartos4 = semi2.getPartido2();
+//
+//        System.out.println("La final es el partido número " + partFinal.getNumPartido());
+//        System.out.println("Las semis son los partidos número " + semi1.getNumPartido() + " y " + semi2.getNumPartido());
+//        System.out.println("Los cuartos son los partidos número " + cuartos1.getNumPartido() + ", " + cuartos2.getNumPartido() + ", " + cuartos3.getNumPartido() + " y " + cuartos4.getNumPartido());
 
         nuevoTorneo.armarPrimeraRonda();
 
@@ -93,6 +93,9 @@ public class GrandSlam {
         nuevoTorneo.inscribirJugador(p32);
 
         nuevoTorneo.armarPrimeraRonda();
-
+        
+        nuevoTorneo.verResultado(nuevoTorneo.busquedaPartido(1));
+        
+        
     }
 }

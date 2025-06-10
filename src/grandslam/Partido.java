@@ -1,7 +1,7 @@
 package grandslam;
 
 public class Partido {
-    private int nivel; //Define la instancia... si son 16 equipos, el nivel de la final es nivel 8. Las semis serán nivel 4, cuartos serán nivel 2 y octavos nivel 1.
+    private int nivel; //Define la instancia... si son 16 equipos, el nivel de la final es nivel 8. Las semis serán nivel 4, cuartos serán nivel 2 y octavos nivel 1. Se utiliza para poder enumerar correctamente los partidos que se van a crear
     private int numPartido;
     private Participante part1;
     private Participante part2;
@@ -16,17 +16,16 @@ public class Partido {
 
     public Partido(int numPartido) {
         this.numPartido = numPartido;
+        this.punt1=-1;
+        this.punt2=-1;
     }
     public Partido(int numPartido, int nivel) {
         this.numPartido = numPartido;
         this.nivel = nivel;
+        this.punt1=-1;
+        this.punt2=-1;
     }
     
-    public Partido (Participante part1, Participante part2){
-        this.part1=part1;
-        this.part2=part2;
-    }
-
     public void setNumPartido(int numPartido) {
         this.numPartido = numPartido;
     }

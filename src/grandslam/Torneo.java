@@ -13,6 +13,7 @@ public class Torneo {
         this.partFinal = new Partido();
         partFinal.setNumPartido(cantidadParticipantes / 2);
         partFinal.setNivel(cantidadParticipantes / 2);
+        System.out.println((int) (Math.log10(cantidadParticipantes) / Math.log10(2)));
     }
 
     public void inscribirJugador(Participante jugador) {
@@ -87,10 +88,6 @@ public class Torneo {
         return participantes;
     }
 
-    public Partido verFinal() {
-        return partFinal;
-    }
-
     public Partido busquedaPartido(int numPartido) {
         return buscarPartido(partFinal, numPartido);
     }
@@ -120,12 +117,32 @@ public class Torneo {
                 Partido partido = busquedaPartido(numPartido);
                 partido.setPart1(p1);
                 partido.setPart2(p2);
-                System.out.println("Partido " + numPartido + ": "+partido.getPart1().getNombreCompleto()+"(#"+partido.getPart1().getRanking()+") vs. "+partido.getPart2().getNombreCompleto()+"(#"+partido.getPart2().getRanking()+")");
+                System.out.printf("%-11s %-30s","Partido " + numPartido + ":" , partido.getPart1() + " VS. " + partido.getPart2());
+                System.out.println("");
             }
             System.out.println("Se han armado los partidos");
         } else {
             System.out.println("Aún hay " + (cantidadParticipantes - participantes.size()) + " cupos vacíos para el torneo. Se deben inscribir más participantes.");
         }
-
     }
+
+    public void verResultado(Partido partido) {
+        String resultado;
+        if (partido.getPunt1() == -1 || partido.getPunt2() == -1) {
+            resultado = " (A jugar) ";
+        } else {
+            resultado = " " + partido.getPunt1()+"-"+partido.getPunt2()+ " ";
+        }
+            System.out.println(partido.getPart1() + resultado + partido.getPart2());
+    }
+
+    public void cargarResultado(Partido partido, int punt1, int punt2) {
+        partido.setPunt1(punt1);
+        partido.setPunt1(punt2);
+
+        if (punt1 > punt2) {
+            
+        }
+    }
+
 }

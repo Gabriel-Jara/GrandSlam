@@ -1,6 +1,7 @@
 package grandslam;
 
 public class Participante {
+
     private String nombreCompleto;
     private String nacionalidad;
     private int ranking;
@@ -37,9 +38,7 @@ public class Participante {
 
     @Override
     public String toString() {
-        return "nombreCompleto=" + nombreCompleto + ", nacionalidad=" + nacionalidad + ", ranking=" + ranking;
+        return String.format("%-5s %-25s", "(#" + ranking + ")",nombreCompleto + " ["+ nacionalidad.substring(0, 3).toUpperCase()+"]");
     }
-    
-    
-    
+
 }
