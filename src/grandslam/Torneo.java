@@ -1,12 +1,14 @@
 package grandslam;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Torneo {
 
     private ArrayList<Participante> participantes = new ArrayList<>();
     private int cantidadParticipantes;
     private Partido partFinal;
+    private Scanner entrada = new Scanner(System.in);
 
     public Torneo(int cantidadParticipantes) {// se debe agregar para que la cantidad sea siempre un valor de 2^n (o controlar en el main)
         this.cantidadParticipantes = cantidadParticipantes;
@@ -60,7 +62,7 @@ public class Torneo {
         System.out.println("TORNEO");
         System.out.println("--------------------------------------------------------");
 //        mostrarPartidos(partFinal);
-        int cantInstancias = (int) (Math.log10(cantidadParticipantes)/ Math.log10(2));
+        int cantInstancias = (int) (Math.log10(cantidadParticipantes) / Math.log10(2));
         for (int i = 0; i < cantInstancias; i++) {
             verInstancia((int) Math.pow(2, i));
         }
@@ -81,7 +83,6 @@ public class Torneo {
 //            verResultado(partido.getPartido2());
 //        }
 //    }
-
     private void ordenarParticipantes() {
         //insertionSort
         int cantidad = participantes.size();
@@ -121,11 +122,11 @@ public class Torneo {
     }
 
     public void armarPrimeraRonda() {
-        
+
         System.out.println("--------------------------------------------------------");
         System.out.println("Primera Ronda");
         System.out.println("--------------------------------------------------------");
-        
+
         if (cantidadParticipantes == participantes.size()) {// Se ejecuta solo si la lista de participantes está llena
             ordenarParticipantes();
             for (int i = 0; i < cantidadParticipantes / 2; i++) {
@@ -169,11 +170,38 @@ public class Torneo {
         System.out.println(jugador1 + resultado + jugador2);
     }
 
-    public void cargarResultado(Partido partido, int punt1, int punt2) { //Se debe condicionar para que no cargue el resultado si aún no está cargado alguno de los jugadores
+    public void cargarResultado(Partido partido, int punt1, int punt2) {
+        if(partido.getPart1()!= null && partido.getPart2()!=null){
         partido.setPunt1(punt1);
         partido.setPunt2(punt2);
 
         avanzarGanadores();
+            
+        } else {
+            System.out.println("No se puede cargar el resultado porque falta alguno de los participantes");
+        }
+    }
+
+    public void cargarResultadosFase(int nivel) {
+        ArrayList<Partido> partidosFase = verInstancia(nivel);
+        int punt1;
+        int punt2;
+        for (Partido partido : partidosFase) {
+            System.out.println("Partido N° " + partido.getNumPartido() + ":");
+            verResultado(partido);
+
+            do {
+                System.out.println("Ingrese el puntaje de " + partido.getPart1());
+                punt1 = entrada.nextInt();
+                System.out.println("Ingrese el puntaje de " + partido.getPart2());
+                punt2 = entrada.nextInt();
+                if (punt1 == punt2) {
+                    System.out.println("Los puntos no pueden ser iguales. Ingrese nuevamente la puntuación");
+                }
+            } while (punt1 == punt2);
+
+            cargarResultado(partido, punt1, punt2);
+        }
     }
 
     public void avanzarGanadores() {
@@ -224,22 +252,26 @@ public class Torneo {
         return instancia;
     }
 
-    public void verInstancia(int nivel) {
+    public ArrayList<Partido> verInstancia(int nivel) {
         System.out.println("-----------------------------");
         System.out.println(nombrarInstancia(nivel));
         System.out.println("-----------------------------");
-        verInstanciaPartido(partFinal, nivel);
+        ArrayList<Partido> partidos = new ArrayList();
+        verInstanciaPartido(partFinal, nivel, partidos);
+
+        return partidos;
     }
 
-    private void verInstanciaPartido(Partido partido, int nivel) {
+    private void verInstanciaPartido(Partido partido, int nivel, ArrayList<Partido> partidos) {
 
         if (partido.getNivel() == nivel) {
             System.out.println("Partido N°" + partido.getNumPartido() + ": ");
+            partidos.add(partido);
             verResultado(partido);
             System.out.println("");
         } else if (partido.getPartido1() != null && partido.getPartido2() != null) {
-            verInstanciaPartido(partido.getPartido1(), nivel);
-            verInstanciaPartido(partido.getPartido2(), nivel);
+            verInstanciaPartido(partido.getPartido1(), nivel, partidos);
+            verInstanciaPartido(partido.getPartido2(), nivel, partidos);
         }
     }
 

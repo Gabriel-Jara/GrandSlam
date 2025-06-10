@@ -92,6 +92,6 @@ public class Partido {
 
     @Override
     public String toString() {
-        return "Partido{" + "nivel=" + nivel + ", numPartido=" + numPartido + ", part1=" + part1 + ", part2=" + part2 + '}';
+        return "Partido N° " + this.numPartido + ": " + part1 + " VS. " + part2;
     }
 }

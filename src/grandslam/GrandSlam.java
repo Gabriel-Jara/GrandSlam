@@ -97,5 +97,10 @@ public class GrandSlam {
         nuevoTorneo.cargarResultado(nuevoTorneo.busquedaPartido(3), 2, 3);
         nuevoTorneo.mostrarTorneo();
         
+        System.out.println(nuevoTorneo.verInstancia(4));
+        
+        nuevoTorneo.cargarResultadosFase(8);
+        nuevoTorneo.mostrarTorneo();
+        
     }
 }
