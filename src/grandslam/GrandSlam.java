@@ -90,11 +90,11 @@ public class GrandSlam {
         nuevoTorneo.inscribirJugador(p32);
 
         nuevoTorneo.armarPrimeraRonda();
-
-        nuevoTorneo.verResultado(nuevoTorneo.busquedaPartido(1));
                 
         nuevoTorneo.mostrarTorneo();
         nuevoTorneo.cargarResultado(nuevoTorneo.busquedaPartido(1), 3, 2);
+        nuevoTorneo.mostrarTorneo();
+        nuevoTorneo.cargarResultado(nuevoTorneo.busquedaPartido(3), 2, 3);
         nuevoTorneo.mostrarTorneo();
         
     }

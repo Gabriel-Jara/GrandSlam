@@ -66,21 +66,21 @@ public class Torneo {
         }
     }
 
-    private void mostrarPartidos(Partido partido) {
-
-        if (partido.getPartido1() != null && partido.getPartido2() != null) {
-            mostrarPartidos(partido.getPartido1());
-            System.out.println("Partido N°" + partido.getPartido1().getNumPartido() + " ");
-            verResultado(partido.getPartido1());
-            if (partido.getNivel() == 1) {
-                System.out.println("Partido N°" + partido.getNumPartido() + " ");
-                verResultado(partido);
-            }
-            mostrarPartidos(partido.getPartido2());
-            System.out.println("Partido N°" + partido.getPartido2().getNumPartido() + " ");
-            verResultado(partido.getPartido2());
-        }
-    }
+//    private void mostrarPartidos(Partido partido) {
+//
+//        if (partido.getPartido1() != null && partido.getPartido2() != null) {
+//            mostrarPartidos(partido.getPartido1());
+//            System.out.println("Partido N°" + partido.getPartido1().getNumPartido() + " ");
+//            verResultado(partido.getPartido1());
+//            if (partido.getNivel() == 1) {
+//                System.out.println("Partido N°" + partido.getNumPartido() + " ");
+//                verResultado(partido);
+//            }
+//            mostrarPartidos(partido.getPartido2());
+//            System.out.println("Partido N°" + partido.getPartido2().getNumPartido() + " ");
+//            verResultado(partido.getPartido2());
+//        }
+//    }
 
     private void ordenarParticipantes() {
         //insertionSort
@@ -121,6 +121,11 @@ public class Torneo {
     }
 
     public void armarPrimeraRonda() {
+        
+        System.out.println("--------------------------------------------------------");
+        System.out.println("Primera Ronda");
+        System.out.println("--------------------------------------------------------");
+        
         if (cantidadParticipantes == participantes.size()) {// Se ejecuta solo si la lista de participantes está llena
             ordenarParticipantes();
             for (int i = 0; i < cantidadParticipantes / 2; i++) {
@@ -164,7 +169,7 @@ public class Torneo {
         System.out.println(jugador1 + resultado + jugador2);
     }
 
-    public void cargarResultado(Partido partido, int punt1, int punt2) {
+    public void cargarResultado(Partido partido, int punt1, int punt2) { //Se debe condicionar para que no cargue el resultado si aún no está cargado alguno de los jugadores
         partido.setPunt1(punt1);
         partido.setPunt2(punt2);
 
